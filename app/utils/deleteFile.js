@@ -26,11 +26,8 @@ function deleteImage(imageName) {
       }
     }
   } catch(error) {
-    return {
-      error: true,
-      message: error,
-      pathImage: imageName
-    }
+    console.log('Error al eliminar imagen que no existe')
+    console.log(error)
   }
 }
 
