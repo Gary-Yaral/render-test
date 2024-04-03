@@ -1,5 +1,5 @@
 const sequelize = require('../database/config')
-const { Op } = require('sequelize')
+const { Op, fn, col, where } = require('sequelize')
 
 const { getErrorFormat } = require('../utils/errorsFormat')
 const { Provider } = require('../models/index')
@@ -65,11 +65,11 @@ async function paginateAndFilter(req, res) {
     let providers = await Provider.findAndCountAll({
       where: { 
         [Op.or]: [
-          { ruc: { [Op.like]: `%${filter}%` } },
-          { name: { [Op.like]: `%${filter}%` } },
-          { telephone: { [Op.like]: `%${filter}%` } },
-          { address: { [Op.like]: `%${filter}%` } },
-          { email: { [Op.like]: `%${filter}%` } }
+          where(fn('LOWER', col('name')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('ruc')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('telephone')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('address')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('email')), 'LIKE', `%${filter.toLowerCase()}%`)
         ]
       },
       limit: perPage,

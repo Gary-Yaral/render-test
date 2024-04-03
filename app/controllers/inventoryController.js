@@ -1,5 +1,5 @@
 const sequelize = require('../database/config')
-const { Op, literal } = require('sequelize')
+const { Op, literal, where, col, cast, fn } = require('sequelize')
 const { Provider, Invoice, Inventory, Image, DamagedImage, Category} = require('../models/index')
 const { deleteImagesGroup } = require('../utils/deleteFile')
 const { isUniqueNotEmpty, areUniquesNotEmpty } = require('../utils/functions')
@@ -185,19 +185,6 @@ async function paginateAndFilter(req, res) {
     let { filter, perPage, currentPage } = req.body
     perPage = parseInt(perPage)
     currentPage = parseInt(currentPage)
-    let where = {
-      [Op.or]: [
-        { name: { [Op.like]: '%' + filter + '%' } },
-        { description: { [Op.like]: '%' + filter + '%' } },
-        { '$Invoice.code$': { [Op.like]: '%' + filter + '%' } },
-        { '$Invoice.Provider.name$': { [Op.like]: '%' + filter + '%' } },
-        { '$Category.name$': { [Op.like]: '%' + filter + '%' } },
-        literal(`CAST(price AS CHAR) LIKE '%${filter}%'`),
-        literal(`CAST(damaged AS CHAR) LIKE '%${filter}%'`),
-        literal(`CAST(quantity AS CHAR) LIKE '%${filter}%'`)
-        
-      ]      
-    }
     let inventors = await Inventory.findAndCountAll({
       include: [ 
         {
@@ -206,12 +193,20 @@ async function paginateAndFilter(req, res) {
         }, 
         Category
       ],
+      where: {
+        [Op.or]: [
+          literal(`CAST(price AS CHAR) LIKE '%${filter}%'`),
+          literal(`CAST(damaged AS CHAR) LIKE '%${filter}%'`),
+          literal(`CAST(quantity AS CHAR) LIKE '%${filter}%'`),
+          where(fn('LOWER', col('Inventory.name')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('description')), 'LIKE', `%${filter.toLowerCase()}%`)
+        ] 
+      } ,
       raw: true,
       limit: perPage,
-      offset: (currentPage - 1) * perPage,
-      where
+      offset: (currentPage - 1) * perPage
     })
-    
+    console.log(inventors)
     res.json({ data: inventors })
   } catch(error) {
     console.log(error)

@@ -23,8 +23,7 @@ const providerValidator = [
   check('address')
     .exists().withMessage(customMessages['required'])
     .notEmpty().withMessage(customMessages['empty'])
-    .custom((value) => textRegex.test(value)).withMessage(customMessages['blanks'])
-    .toUpperCase(),
+    .custom((value) => textRegex.test(value)).withMessage(customMessages['blanks']),
   check('telephone')
     .exists().withMessage(customMessages['required'])
     .notEmpty().withMessage(customMessages['empty'])

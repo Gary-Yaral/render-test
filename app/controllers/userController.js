@@ -1,5 +1,5 @@
 const sequelize = require('../database/config')
-const { Op } = require('sequelize')
+const { Op, fn, col, where } = require('sequelize')
 const { Role, User, UserStatus  } = require('../models/index')
 const { generateHash } = require('../utils/bcrypt')
 const { getErrorFormat } = require('../utils/errorsFormat')
@@ -107,11 +107,11 @@ async function paginateAndFilter(req, res) {
         id: { [Op.ne]: id},
         '$Role.id$': {[Op.ne]: ROLES_TYPE.ADMIN},     
         [Op.or]: [
-          { name: { [Op.like]: `%${filter}%` } },
-          { lastname: { [Op.like]: `%${filter}%` } },
-          { username: { [Op.like]: `%${filter}%` } },
-          { '$Role.name$': { [Op.like]: `%${filter}%` } },
-          { '$UserStatus.name$': { [Op.like]: `%${filter}%` } }
+          where(fn('LOWER', col('User.name')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('lastname')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('username')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('Role.name')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('UserStatus.name')), 'LIKE', `%${filter.toLowerCase()}%`)
         ]
       },
       limit: parseInt(perPage),

@@ -1,5 +1,5 @@
 const sequelize = require('../database/config')
-const { Op } = require('sequelize')
+const { Op, fn, col, where } = require('sequelize')
 const { getErrorFormat } = require('../utils/errorsFormat')
 const { Category } = require('../models/index')
 
@@ -43,7 +43,11 @@ async function paginateAndFilter(req, res) {
     perPage = parseInt(perPage)
     currentPage = parseInt(currentPage)
     let categories = await Category.findAndCountAll({
-      where: { name: { [Op.like]: `%${filter}%` } },
+      where: { 
+        [Op.or]: [
+          where(fn('LOWER', col('name')), 'LIKE', `%${filter.toLowerCase()}%`)
+        ]
+      },
       limit: perPage,
       offset: (currentPage - 1) * perPage
 

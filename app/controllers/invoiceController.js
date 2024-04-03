@@ -1,5 +1,5 @@
 const sequelize = require('../database/config')
-const { Op } = require('sequelize')
+const { Op, where, col, fn } = require('sequelize')
 const { getErrorFormat } = require('../utils/errorsFormat')
 const { Provider, Invoice } = require('../models/index')
 
@@ -82,10 +82,11 @@ async function paginateAndFilter(req, res) {
       include: [Provider],
       where: { 
         [Op.or]: [
-          { code: { [Op.like]: `%${filter}%` } },
-          { date: { [Op.like]: `%${filter}%` } },
-          { observation: { [Op.like]: `%${filter}%` } },
-          { '$Provider.name$': { [Op.like]: `%${filter}%` } }
+          where(fn('LOWER', col('name')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('code')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('date')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('observation')), 'LIKE', `%${filter.toLowerCase()}%`),
+          where(fn('LOWER', col('Provider.name')), 'LIKE', `%${filter.toLowerCase()}%`)
         ]
       },
       raw: true,
