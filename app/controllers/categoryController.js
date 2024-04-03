@@ -14,7 +14,7 @@ async function getAll(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 
@@ -33,7 +33,7 @@ async function paginate(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 
@@ -54,7 +54,7 @@ async function paginateAndFilter(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 
@@ -73,7 +73,7 @@ async function add(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al crear categoría', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 
@@ -93,7 +93,7 @@ async function update(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al actualizar categoría', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 
@@ -111,7 +111,7 @@ async function count(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 
@@ -136,7 +136,7 @@ async function remove(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al eliminar categoría', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 

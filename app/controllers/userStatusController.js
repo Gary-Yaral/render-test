@@ -10,7 +10,7 @@ async function getAll(req, res) {
     let errorName = 'request'
     let errors = {...getErrorFormat(errorName, 'Error al consultar statuses', errorName) }
     let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ errors, errorKeys})
   }
 }
 

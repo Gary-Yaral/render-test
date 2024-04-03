@@ -1,6 +1,5 @@
 const sequelize = require('../database/config')
 const { Op, literal } = require('sequelize')
-const { getErrorFormat } = require('../utils/errorsFormat')
 const { Provider, Invoice, Inventory, Image, DamagedImage, Category} = require('../models/index')
 const { deleteImagesGroup } = require('../utils/deleteFile')
 const { isUniqueNotEmpty, areUniquesNotEmpty } = require('../utils/functions')
@@ -14,10 +13,7 @@ async function findInvoices(req, res) {
     })
   } catch(error) {
     console.log(error)
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al buscar faturas del inventario'})
   }
 }
 
@@ -32,10 +28,7 @@ async function count(req, res) {
     })
   } catch(error) {
     console.log(error)
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al contar los inventarios'})
   }
 }
 
@@ -145,10 +138,7 @@ async function getByFilterReport(req, res) {
     })
   } catch(error) {
     console.log(error)
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al filtrar reporte'})
   }
 }
 
@@ -186,10 +176,7 @@ async function paginate(req, res) {
     })
   } catch(error) {
     console.log(error)
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al paginar los inventarios'})
   }
 }
 
@@ -228,10 +215,7 @@ async function paginateAndFilter(req, res) {
     res.json({ data: inventors })
   } catch(error) {
     console.log(error)
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al consultar datos', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al filtrar y paginar los inventarios'})
   }
 }
 
@@ -327,10 +311,7 @@ async function add(req, res) {
     await transaction.rollback()
     let hasBeenError = imagesWereDeleted(req)
     if(hasBeenError) { return res.json(hasBeenError)}
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, `Item ${req.body.name} no se guardó`, errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al guardar el inventario'})
   }
 }
 
@@ -424,10 +405,7 @@ async function update(req, res) {
   } catch (error) {
     console.log(error)
     await transaction.rollback()
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al actualizar factura', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al actualizar el inventario'})
   }
 }
 
@@ -454,10 +432,7 @@ async function remove(req, res) {
   } catch (error) {
     console.log(error)
     await transaction.rollback()
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al eliminar item del inventario', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al eliminar el inventario'})
   }
 }
 
@@ -485,10 +460,7 @@ async function getImages(req, res) {
     return res.json({ data })
   } catch (error) {
     console.log(error)
-    let errorName = 'request'
-    let errors = {...getErrorFormat(errorName, 'Error al consultar las imagenes del item del inventario', errorName) }
-    let errorKeys = [errorName]
-    return res.status(400).json({ errors, errorKeys})
+    return res.json({ error: true, msg: 'Error al obtener las imagenes'})
   }
 }
 
