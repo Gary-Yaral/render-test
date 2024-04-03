@@ -1,11 +1,6 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize(process.env.DB_URI, {
-  dialect: 'postgres'
-  /*  dialectOptions: {
-    ssl: true
-  } */
-})
+const sequelize = new Sequelize(process.env.DB_URI)
 
 sequelize.authenticate()
   .then(() =>{
