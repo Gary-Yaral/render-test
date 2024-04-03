@@ -1,7 +1,7 @@
 const invoiceController = require('../controllers/invoiceController')
 const { validateToken } = require('../middlewares/auth')
 const { findId } = require('../middlewares/findId')
-const Invoice = require('../models/invoiceModel')
+const { Invoice } = require('../models/index')
 const { providerInvoice } = require('../validators/invoiceValidator')
 const router = require('express').Router() 
 router.get('/', validateToken, invoiceController.paginate)

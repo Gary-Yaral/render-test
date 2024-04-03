@@ -2,7 +2,7 @@ const userController = require('../controllers/userController')
 const { userValidator } = require('../validators/userValidator')
 
 const { validateToken } = require('../middlewares/auth')
-const User = require('../models/userModel')
+const { User }  = require('../models/index')
 const router = require('express').Router()
 const { findId } = require('../middlewares/findId') 
 router.get('/', validateToken, userController.paginate)

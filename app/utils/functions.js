@@ -1,4 +1,4 @@
-const User = require('../models/userModel')
+const { User, Provider } = require('../models/index')
 
 async function findRepeatedUser(req, data) {
   const user = await User.findOne({ 
@@ -20,8 +20,6 @@ async function findRepeatedUser(req, data) {
     }
   }
 }
-
-const Provider = require('../models/providerModel')
 
 async function findRepeatedProvider(req, data) {
   const user = await Provider.findOne({ where: data, raw:true })

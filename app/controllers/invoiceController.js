@@ -1,8 +1,7 @@
 const sequelize = require('../database/config')
 const { Op } = require('sequelize')
 const { getErrorFormat } = require('../utils/errorsFormat')
-const Provider = require('../models/providerModel')
-const Invoice = require('../models/invoiceModel')
+const { Provider, Invoice } = require('../models/index')
 
 async function getAll(req, res) {
   try {

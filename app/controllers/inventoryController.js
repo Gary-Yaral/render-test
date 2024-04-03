@@ -1,13 +1,8 @@
 const sequelize = require('../database/config')
 const { Op, literal } = require('sequelize')
 const { getErrorFormat } = require('../utils/errorsFormat')
-const Provider = require('../models/providerModel')
-const Invoice = require('../models/invoiceModel')
-const Inventory = require('../models/InventoryModel')
+const { Provider, Invoice, Inventory, Image, DamagedImage, Category} = require('../models/index')
 const { deleteImagesGroup } = require('../utils/deleteFile')
-const Image = require('../models/imageModel')
-const DamagedImage = require('../models/damagedImageModel')
-const Category = require('../models/categoryModel')
 const { isUniqueNotEmpty, areUniquesNotEmpty } = require('../utils/functions')
 
 async function findInvoices(req, res) {

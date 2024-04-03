@@ -2,7 +2,7 @@
 const categoryController = require('../controllers/categoryController')
 const { validateToken } = require('../middlewares/auth')
 const { findId } = require('../middlewares/findId')
-const Category = require('../models/categoryModel')
+const { Category } = require('../models/index')
 const { categoryValidator } = require('../validators/categoryValidator')
 const router = require('express').Router() 
 

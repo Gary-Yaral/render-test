@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 sequelize.sync()
   .then(() => {
-    app.listen(PORT)
+    app.listen(PORT, () => { console.log(`Servidor corriendo en el puerto: ${PORT}`)})
     console.log('La base de datos se ha sincronizado')
   })
   .catch((err) => {

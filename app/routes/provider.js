@@ -2,7 +2,7 @@
 const providerController = require('../controllers/providerController')
 const { validateToken } = require('../middlewares/auth')
 const { findId } = require('../middlewares/findId')
-const Provider = require('../models/providerModel')
+const { Provider } = require('../models/index')
 const { providerValidator } = require('../validators/providerValidator')
 const router = require('express').Router() 
 router.get('/', validateToken, providerController.paginate)

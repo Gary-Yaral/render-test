@@ -3,8 +3,7 @@ const { validateRequest } = require('../middlewares/evaluateRequest.js')
 const { customMessages } = require('../utils/customMessages.js')
 const { textRegex } = require('../utils/regExp.js')
 const { getErrorFormat } = require('../utils/errorsFormat.js')
-const Invoice = require('../models/invoiceModel.js')
-const Provider = require('../models/providerModel.js')
+const { Invoice, Provider } = require('../models/index.js')
 
 const providerInvoice = [
   check('code')

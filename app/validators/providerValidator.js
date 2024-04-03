@@ -3,7 +3,7 @@ const { validateRequest } = require('../middlewares/evaluateRequest.js')
 const { customMessages } = require('../utils/customMessages.js')
 const { textRegex, emailRegex } = require('../utils/regExp.js')
 const { findRepeatedProvider } = require('../utils/functions.js')
-const Provider = require('../models/providerModel.js')
+const { Provider } = require('../models/index.js')
 
 const providerValidator = [
   check('name')

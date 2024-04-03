@@ -2,7 +2,7 @@ const { check } = require('express-validator')
 const { validateRequest } = require('../middlewares/evaluateRequest.js')
 const { customMessages } = require('../utils/customMessages.js')
 const { textRegex } = require('../utils/regExp.js')
-const Category = require('../models/categoryModel.js')
+const { Category } = require('../models/index.js')
 
 const categoryValidator = [
   check('name')

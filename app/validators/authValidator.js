@@ -1,10 +1,8 @@
 const { check } = require('express-validator')
 const { validateRequest } = require('../middlewares/evaluateRequest')
 const { customMessages } = require('../utils/customMessages.js')
-const User = require('../models/userModel.js')
 const { getErrorFormat } = require('../utils/errorsFormat.js')
-const Role = require('../models/roleModel.js')
-const UserStatus = require('../models/userStatusModel.js')
+const { Role, UserStatus, User } = require('../models/index.js')
 const { validateHash } = require('../utils/bcrypt.js')
 const { USER_STATUS } = require('../constants/index.js')
 

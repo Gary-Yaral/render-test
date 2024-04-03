@@ -1,12 +1,11 @@
 const inventoryController = require('../controllers/inventoryController')
 const { validateToken } = require('../middlewares/auth')
 const { findId } = require('../middlewares/findId')
-const Provider = require('../models/providerModel')
 const router = require('express').Router()
 const multer = require('multer')
 const path = require('path')
+const { Provider, Inventory,  } = require('../models/index')
 const { newImageName } = require('../utils/saveImage')
-const Inventory = require('../models/InventoryModel')
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './app/uploads/')

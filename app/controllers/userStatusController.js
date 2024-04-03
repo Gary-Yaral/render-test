@@ -1,4 +1,4 @@
-const UserStatus = require('../models/userStatusModel')
+const { UserStatus } = require('../models/index')
 const { getErrorFormat } = require('../utils/errorsFormat')
 
 async function getAll(req, res) {

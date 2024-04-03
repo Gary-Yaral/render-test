@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize')
 
-const sequelize = new Sequelize('inventory','root','', {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false
+const sequelize = new Sequelize(process.env.DB_URI, {
+  dialect: 'postgres'
+  /*  dialectOptions: {
+    ssl: true
+  } */
 })
 
 sequelize.authenticate()
