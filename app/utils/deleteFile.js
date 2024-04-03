@@ -32,11 +32,11 @@ function deleteImage(imageName) {
 }
 
 function deleteImagesGroup(imgNames) {
+  let hasError
   for(let img of imgNames) {
-    let hasError = deleteImage(img.filename)
-    if(hasError) { return false }
+    hasError = deleteImage(img.filename)
   }
-  return true
+  return hasError
 }
 
 module.exports = { 

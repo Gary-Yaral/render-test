@@ -217,7 +217,7 @@ async function paginateAndFilter(req, res) {
 function imagesWereDeleted(req) {
   if(req.files.images) {
     if(Array.isArray(req.files.images)) {
-      if(!deleteImagesGroup(req.files.images)){
+      if(deleteImagesGroup(req.files.images)){
         return {
           error: true,
           msg: `Error al procesar el item: ${req.body.name}, proceso falló y las imagenes no pudieron no pudieron ser eliminadas`
@@ -227,7 +227,7 @@ function imagesWereDeleted(req) {
   }
   if(req.files.imgDamaged) {
     if(Array.isArray(req.files.imgDamaged)) {
-      if(!deleteImagesGroup(req.files.imgDamaged)){
+      if(deleteImagesGroup(req.files.imgDamaged)){
         return {
           error: true,
           msg: `Error al procesar el item: ${req.body.name}. proceso falló y las imagenes de daños no pudieron no pudieron ser eliminadas`
