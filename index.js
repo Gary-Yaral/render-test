@@ -5,6 +5,7 @@ const routes = require('./app/routes/index')
 const path = require('path')
 const app = express()
 const cors = require('cors')
+const fs = require('fs')
 const PORT = process.env.PORT || 4000 
 app.use(cors({
   origin: '*'
@@ -13,7 +14,8 @@ app.use(express.json())
 app.use('/api/uploads', express.static(path.join(__dirname, 'app' ,'uploads')))
 app.use('/api', routes.router)
 app.get('/', (req, res) => {
-  return res.json({message: 'Hello world'})
+  const files = fs.readdirSync('./app/uploads')
+  return res.json({message: 'Hello world', files: files})
 })
 // Middleware para servir archivos estáticos desde la carpeta 'imagenes'
 
