@@ -305,6 +305,7 @@ async function add(req, res) {
     console.log(error)
     await transaction.rollback()
     let hasBeenError = imagesWereDeleted(req)
+    console.log(hasBeenError)
     if(hasBeenError) { return res.json(hasBeenError)}
     return res.json({ error: true, msg: 'Error al guardar el inventario'})
   }
@@ -414,6 +415,7 @@ async function remove(req, res) {
     await Inventory.destroy({ where: { id: req.params.id }, transaction})
     // eliminamos las imagenes
     const hasErrorToDeleteImg = imagesWereDeleted(req)
+    console.log(hasErrorToDeleteImg)
     if(hasErrorToDeleteImg) {
       transaction.rollback()
       return res.json(hasErrorToDeleteImg) 
